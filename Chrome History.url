@@ -2,4 +2,5 @@
 Prop3=19,0
 [InternetShortcut]
 IDList=
-URL=chromespecialpage:history
+URL=chrome://history/
+HotKey=0
