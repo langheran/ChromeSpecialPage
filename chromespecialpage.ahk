@@ -12,6 +12,7 @@ if(args="")
     ExitApp
 
 args:=StrReplace(args,"chrome:")
+args:=StrReplace(args,"chromespecialpage:")
 args:=StrReplace(args,"\","/")
 args:=LTrim(args, "/")
 
