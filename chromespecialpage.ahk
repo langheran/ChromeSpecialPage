@@ -11,8 +11,17 @@ Loop, %0%  ; For each parameter:
 if(args="")
     ExitApp
 
-args:=StrReplace(args,"chrome:")
-args:=StrReplace(args,"chromespecialpage:")
+if(InStr(args, "chrome:") || InStr(args, "chromespecialpage:"))
+{
+    args:=StrReplace(args,"chrome:")
+    args:=StrReplace(args,"chromespecialpage:")
+    prefix:="chrome://"
+}
+if(InStr(args, "chrome-extension:"))
+{
+    args:=StrReplace(args,"chrome-extension:")
+    prefix:="chrome-extension://"
+}
 args:=StrReplace(args,"\","/")
 args:=LTrim(args, "/")
 
@@ -40,7 +49,7 @@ Sleep, 100
 ; Send chrome://%args%{Enter}
 AccChrome := Acc_ObjectFromWindow(hwndChrome)
 AccAddressBar := GetElementByName(AccChrome, "Address and search bar")
-AccAddressBar.accValue(0) := "chrome://" . args
+AccAddressBar.accValue(0) := prefix . args
 AccAddressBar.accSelect(0x1,0)
 SendInput, {Enter}
 ExitApp
